@@ -1,0 +1,137 @@
+body {
+    margin: 0;
+    
+    font-family: Arial, sans-serif;
+}
+
+.fp-tableCell {
+	
+    height: 100px;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+   
+
+.foot_awards_wrap {
+    padding: 30px;
+    background-color: #f4f6f8;
+}
+.foot_wrap li {
+    list-style: none;
+}
+.swiper_foot .swiper-slide {
+    opacity: 1;
+    width: auto;
+}
+
+.swiper_foot img {
+    width: 100%;
+}
+
+.foot_menu_wrap {
+    background-color: #fdd000;
+    color: #1c1c1b;
+    padding: 20px;
+}
+.foot_menu_wrap li{
+	list-style: none;
+}
+.foot_menu_wrap .foot_menu {
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.foot_menu_wrap .foot_menu ul li {
+    margin-top: 0;
+}
+
+.foot_menu_wrap .foot_menu ul li a:hover {
+    text-decoration: underline;
+}
+
+.foot_wrap {
+    background-color: #212121;
+    color: #aaa;
+    padding: 60px 20px;
+    font-size: 0.9em;
+}
+
+.foot_wrap .foot {
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.foot_logo img {
+    max-width: 180px;
+}
+
+.foot_sns ul li {
+    background-color: #fff;
+    border-radius: 50%;
+	 width: 40px; /* 너비 조절 */
+    height: 40px; /* 높이 조절 */
+    display: inline-block; /* 아이콘들을 수평으로 배치 */
+    margin-right: 10px; /* 아이콘들 사이의 간격 조절 */
+}
+
+.cont_list {
+    padding-left: 10px; /* 좌측 패딩 값 추가 */
+    padding-right: 10px; /* 우측 패딩 값 추가 */
+    padding-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+.cont_list ul li {
+	 display: inline-block; /* 아이콘들을 수평으로 배치 */
+}
+.foot_sns ul li a {
+    display: block;
+    padding: 3px;
+    position: relative;
+}
+
+.foot_sns ul li:hover {
+    background-color: #fdd000;
+}
+
+.foot_sns ul li a span {
+    background-color: #fff;
+    color: #000;
+    border-radius: 50px;
+    padding: 2px 6px;
+    font-size: 11px;
+    top: 90%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.foot_wrap .cont_list_m1 ul li {
+    margin-top: 0;
+}
+
+.foot_wrap .foot .foot_info ul li:first-child {
+    color: #fff;
+}
+
+.foot_wrap .foot .cont_text_title {
+    color: #fff;
+    font-size: 1.2em;
+}
+
+.foot_wrap .foot .cont_list5 {
+    font-size: 0.9em;
+}
+
+.foot_wrap .foot .cont_list_small1>ul>li>a {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.foot_wrap .foot .cont_list_small1>ul>li>a:hover {
+    color: #fff;
+    text-decoration: underline;
+}

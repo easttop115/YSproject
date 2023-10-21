@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.care.coffee.event.EventMapper">
+
+	<select id = "eventForm">
+		SELECT no, subject, content, reg_date, hits From megaEvent
+	</select>
+
+	<select id = "totalCount">
+		SELECT count(no) FROM megaEvent
+	</select>
+
+	<insert id = "eventWriteProc">
+		<selectKey order="BEFORE" keyProperty="no" resultType="int">
+			SELECT NVL(max(no), 0)+1 FROM megaEvent
+		</selectKey>
+		INSERT INTO megaEvent VALUES(#{no}, #{id}, #{subject}, #{content},
+		#{reg_date}, #{hits})
+	</insert>
+
+	<select id = "eventContent">
+		SELECT * FROM megaEvent WHERE no=#{n}
+	</select>
+
+	<select id = "incrementHits">
+		UPDATE megaEvent SET hits=hits+1 WHERE no=#{n}
+	</select>
+	
+	<update id="eventModifyProc">
+		UPDATE megaEvent SET subject=#{subject}, content=#{content} WHERE no=#{no}
+	</update>
+	
+	<delete id="eventDeleteProc">
+		DELETE FROM megaEvent WHERE no=#{n}
+	</delete>
+</mapper>    

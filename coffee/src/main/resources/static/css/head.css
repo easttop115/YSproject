@@ -1,0 +1,183 @@
+/* head */
+body {
+	margin: 0;
+	padding-top: 150px;
+	font-family: Arial, sans-serif;
+}
+
+.pc {
+	display: block !important;
+	margin-left: 0;
+	margin-right: 0;
+	width: 100%;
+	/* 전체 너비를 차지하도록 설정 */
+}
+
+.head_wrap {
+	background: #fff;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 85px;
+	z-index: 9999;
+	box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 20px;
+	text-align: center;
+	transition: all 0.2s ease;
+	-webkit-transition: all 0.2s ease;
+	-moz-transition-property: all 0.2s ease;
+	-o-transition-property: all 0.2s ease;
+}
+
+
+.head a {
+	color: black;
+}
+
+.head_wrap .head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 100%;
+}
+
+.head_wrap .head .head_logo {
+	order: 1;
+}
+
+.head_wrap .head .head_logo img {
+	max-width: 130px;
+	height: auto;
+}
+
+.head_wrap .head .head_menu_wrap {
+	order: 2;
+	flex: 1;
+	text-align: center;
+}
+
+.head_wrap .head .head_menu {
+	text-align: center;
+}
+
+.head_wrap .head .head_menu>ul {
+	display: flex;
+	list-style: none;
+	padding: 0;
+}
+
+.head_wrap .head .head_menu>ul>li {
+	flex: 1;
+	text-align: center;
+	position: relative;
+	padding: 10px 0;
+	margin: 0;
+	width: 116px;
+	cursor: pointer;
+	/* 마우스 커서를 포인터로 변경 */
+}
+
+.head_wrap .head .head_menu>ul>li a {
+	display: block;
+	font-weight: 500;
+	font-size: 1.1em;
+	position: relative;
+	text-decoration: none;
+}
+
+.head_wrap .head .head_menu>ul>li a:after {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 2px;
+	background: #1c1c1b;
+	transform: scaleX(0);
+	transition: transform 0.3s ease;
+}
+
+/* 추가된 스타일 - 드롭다운 메뉴 스타일 */
+.head_wrap .head .head_menu .head_menu_down_menu {
+	display: none;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	background: #fff;
+	border: 1px solid #ccc;
+	z-index: 999;
+	width: 100%;
+	/* 드롭다운 메뉴 전체 너비로 변경 */
+	text-align: center;
+	border: none;
+	position: absolute;
+}
+
+.head_wrap .head .head_menu>ul>li:hover .head_menu_down_menu {
+	display: block;
+	width: 100%;
+}
+
+.head_wrap .head .head_menu .head_menu_down_menu ul {
+	list-style: none;
+	padding: 0;
+	width: auto;
+}
+
+.head_wrap .head .head_menu .head_menu_down_menu ul li {
+	text-align: center;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	/* 드롭다운 메뉴 아이템 전체 너비로 변경 */
+}
+
+.head_wrap .head .head_menu .head_menu_down_menu ul li a {
+	display: block;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 400;
+	font-size: 1.1em;
+	text-decoration: none;
+	color: black;
+	padding: 10px 0;
+	width: auto;
+}
+
+.head_wrap .head .head_menu .head_menu_down_menu ul li a:hover:after {
+	transform: scaleX(1);
+	transform-origin: left;
+	width: 100%;
+}
+
+.head_wrap .head .head_menu .head_menu_down_menu ul li:hover {
+	background-color: #fdd000;
+	width: 100%;
+}
+
+.head_wrap .head .head_sns_menu ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	margin-right: 30px;
+	/* 여기에 마진을 추가하여 아이콘을 왼쪽으로 옮김 */
+}
+
+.head_wrap .head .head_sns_menu ul li {
+	margin-right: 10px;
+	border: 2px solid #ccc;
+	/* 테두리 스타일 및 색상 설정 */
+	border-radius: 50%;
+	/* 원 모양 테두리 설정 */
+}
+
+.head_wrap .head .head_sns_menu ul li img {
+	width: 25px;
+	height: 25px;
+	padding: 2px;
+	/* 이미지와 테두리 간격 설정 */
+}

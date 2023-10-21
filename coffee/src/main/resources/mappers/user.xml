@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+window - preferences - Maven - "Download Artifact Javadoc" check 
+ -->
+<mapper namespace="com.care.coffee.user.UserMapper">
+
+	<select id="userSsn" parameterType="com.care.coffee.user.UserDTO">
+		SELECT count(*) FROM megaUser1 WHERE userName = #{userName} AND mobile= #{mobile}	
+	</select>
+	
+	
+	<insert id="registProc" parameterType="com.care.coffee.user.UserDTO">
+		<selectKey resultType="int" keyProperty="no" order="BEFORE">
+	        SELECT NVL(max(no), 0)+1 FROM megaUser1
+	    </selectKey>
+			insert into megaUser1 values (#{no, jdbcType=NUMERIC},#{id},#{pw},#{userName},#{email},#{nickName},#{mobile},#{address},#{reg_Date},1)
+	</insert>
+	 
+	 <select id="loginProc">
+	 		SELECT COUNT(*) FROM megaUser1 WHERE id = #{id} AND pw = #{pw}
+	 </select>
+	 
+	 <select id="snsLogCheck">
+	 		select count(*) from snsUser Where id = #{id} AND loginType = #{loginType}
+	 </select>
+	 <insert id="snsRegist" parameterType="com.care.coffee.user.SnsUserDTO">
+	 		insert into snsUser values(#{id},#{loginType})
+	 </insert>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
