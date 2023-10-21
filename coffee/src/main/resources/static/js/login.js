@@ -87,27 +87,47 @@ function loginCheck() {
 
 var xhr; 
 function idCheck() {
-	xhr= new XMLHttpRequest();
-	var id = document.getElementById('id').value;
-	xhr.open('post', 'idCheck');
-	xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-	xhr.send(id);
-	xhr.onreadystatechange = resProc;
-}
+	
+	xhr = new XMLHttpRequest();
+    var id = document.getElementById('id').value;
+    
+    //데이터를 객체로 감싸서 준비
+    //JSON 타입이라서 JSON 형식으로 보내야하는 것 같음 아님 말구
+    var data = { id: id }; 
 
-function resProc() {
-	if (xhr.readyState === 4 && xhr.status === 200) {
-		var response = xhr.responseText;
-
-		if (response === '존재하는 ID 입니다.') {
-			// 중복된 아이디인 경우 테두리를 빨간색으로 변경
-			document.getElementById('id').style.borderColor = 'red';
-		} else {
-			// 중복되지 않은 아이디인 경우 테두리 스타일을 초기화 (예를 들어, 검정색)
-			document.getElementById('id').style.borderColor = 'blue';
+	//주소를 풀네임으로 정확하게 입력해봄, 200 떨어지는거 확인
+	//사실 이 문제일 가능성이 제일 높음
+    xhr.open('POST', 'http://localhost/idCheck', true);
+    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+    
+    //한 번에 보기 편하게 메서드 실행
+    xhr.onreadystatechange = function() {
+    	//어떻게 들어오는지 확인하기 위해서 콘솔 찍어봄
+    	//readyState 2, 3, 4 단계 별로 3번 찍힘 (알럿창 3번 찍힌 이유)
+    	//readyState 값 2: 이 단계에서는 서버와의 연결이 수립
+    	//readyState 값 3: 이 단계에서는 서버로부터 응답 데이터의 일부가 수신
+    	//readyState 값 4: 이 단계에서는 요청이 완료
+		console.log(xhr);
+		console.log(xhr.readyState);
+		console.log(xhr.status);
+		
+		//요청이 완료되고 응답이 정상인 경우
+		if (xhr.readyState === 4 && xhr.status === 200) {
+			var response = xhr.responseText;
+			
+			//응답값 확인
+			console.log(response);
+			if (response === '존재하는 ID 입니다.') {
+				// 중복된 아이디인 경우 테두리를 빨간색으로 변경
+				document.getElementById('id').style.borderColor = 'red';
+			} else {
+				// 중복되지 않은 아이디인 경우 테두리 스타일을 초기화 (예를 들어, 검정색)
+				document.getElementById('id').style.borderColor = 'blue';
+			}
 		}
-	} else {
-		// 오류 처리
-		alert('요청 중 오류가 발생했습니다.');
 	}
+    
+    xhr.send(JSON.stringify(data)); // JSON.stringify()를 사용하여 데이터를 JSON 형식으로 변환하여 전송
+    
 }
+

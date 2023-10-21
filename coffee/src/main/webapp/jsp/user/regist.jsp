@@ -15,7 +15,7 @@
 			<td>
 				<form action="registProc" method="post" id="f">
 					<input type="text" name="id" id="id" placeholder="아이디" > <font color="red">*</font>
-					<input type="button" name="중복확인" onClick="idCheck()" value="중복확인"></input> <br>
+					<input type="button" onClick="idCheck()" value="중복확인"></input> <br>
 					<input type="password" name="pw" id="pw" placeholder="비밀번호" ><br>
 					<input type="password" name="confirm" id="confirm" placeholder="비밀번호 확인 "  onchange="pwCheck()">
 					<label id="label" ></label><br>

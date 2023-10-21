@@ -1,5 +1,7 @@
 package com.care.coffee.user;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
@@ -79,14 +81,15 @@ public class UserController {
 	
 	@ResponseBody
 	@PostMapping(value = "idCheck", produces = "application/json; charset=utf-8")
-	public String idCheck(@RequestParam String id) {
+	public String idCheck(@RequestBody Map<String, String> requestData) {
+		System.out.println("test========");
+	    String id = requestData.get("id");
 	    System.out.println(id);
 	    
-	    // 여기서 중복 아이디 확인 로직을 수행합니다.
+	    // 중복 아이디 확인 로직을 수행합니다.
 	    // 중복된 경우 "존재하는 ID 입니다."를 반환, 중복되지 않은 경우 다른 메시지를 반환하도록 구현해야 합니다.
 	    
-	   return "존재하는 ID 입니다.";
-	    
+	    return "존재하는 ID 입니다.";
 	}
 	//---회원가입 미완성
 	@PostMapping("user/registProc")
