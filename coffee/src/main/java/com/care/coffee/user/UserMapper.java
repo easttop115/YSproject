@@ -16,5 +16,7 @@ public interface UserMapper {
 	void snsRegist(String id, String loginType);
 
 	void snsRegist(SnsUserDTO dto);
+
+	int idCheck(String id);
 		
 }

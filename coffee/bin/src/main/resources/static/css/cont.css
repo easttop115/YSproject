@@ -1,0 +1,37 @@
+/* cont */
+.cont_list_small1>ul>li {
+	width: 100%;
+	margin-right: 0;
+	margin-top: 0;
+	/* margin-top을 직접 설정 */
+}
+
+.head_menu_down_menu.cont_list.cont_list1.cont_list_small.cont_list_small1> ul >li> a{
+    width: 100px; 
+}
+
+.cont_boxs:last-child {
+    margin-bottom: 0;
+}
+
+.cont_boxs {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    margin-bottom: 100px;
+}
+
+.cont_head {
+    text-align: center;
+    background: #444 !important;
+    color: #fff !important;
+    z-index: 1;
+}
+
+.cont_banner {
+    background: #fdd000;
+    position: relative;
+    overflow: inherit !important;
+    z-index: 2;
+    padding: 50px 0;
+}

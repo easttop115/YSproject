@@ -41,4 +41,10 @@ public class UserService {
 		return res;
 	}
 
+	public int idCheck(String id) {
+		int res = dao.idCheck(id);
+		
+		return res;
+	}
+
 }

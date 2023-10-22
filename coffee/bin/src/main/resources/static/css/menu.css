@@ -1,0 +1,109 @@
+@charset "UTF-8";
+
+::-webkit-scrollbar {
+	width: 5px;
+	height: 5px;
+	background: #f2f2f2;
+}
+
+::-webkit-scrollbar-thumb {
+	background: firebrick;
+}
+
+::-webkit-scrollbar-track {
+	background: #eee;
+}
+
+::selection {
+	background: #fdd000;
+	color: #1c1c1b;
+}
+
+.title,
+.subtitle,
+.box,
+.subbox {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	/* 박스 모델을 border-box로 설정합니다. */
+}
+
+.main {
+	margin-top: 100px;
+}
+
+.title,
+.subtitle {
+	text-align: center;
+	font-weight: bold;
+}
+
+.subtitle {
+	text-align: center;
+	font-size: 15px;
+	font-weight: 300;
+}
+
+.box {
+	background-color: #444;
+}
+
+.subbox {
+	background-color: #fdd000;
+	font-family: Arial, sans-serif;
+	height: 70;
+}
+
+.box,
+.subbox {
+	width: 100%;
+	/* 박스의 너비를 100%로 설정합니다. */
+
+	margin-left: 0;
+	margin-right: 0;
+	padding: 0;
+
+}
+
+.main .box .title {
+	padding: 0;
+}
+
+.main,
+.box,
+.subbox {
+	width: 100%;
+}
+
+
+.sub1 {
+	color: aliceblue;
+	size: 7px;
+}
+
+
+.sub2 {
+	color: #fdd000;
+	size: 30px;
+}
+
+.subtitle_menu {
+	text-align: center;
+}
+
+.sub5 {
+	font-weight: 900 !important;
+}
+
+.menu {
+	display: flex;
+	list-style: none;
+	padding: 0;
+}
+
+.menu-item{
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}

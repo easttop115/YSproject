@@ -29,10 +29,6 @@ window - preferences - Maven - "Download Artifact Javadoc" check
 	 <insert id="snsRegist" parameterType="com.care.coffee.user.SnsUserDTO">
 	 		insert into snsUser values(#{id},#{loginType})
 	 </insert>
-	 
-	 <select id="idCheck">
-	 		select count(*)	from megaUser1 where id = #{id}
- 	 </select>
 </mapper>
 
 
