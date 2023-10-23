@@ -70,6 +70,7 @@ td {
 					<a href="userSsn"><img src="/img/bt_join.gif"></a>
 				</td>
 			</tr>
+			
 		</table>
 	</div>
 </div>

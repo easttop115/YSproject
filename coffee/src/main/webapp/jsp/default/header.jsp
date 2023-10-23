@@ -25,14 +25,26 @@
 			<div class="head_menu_wrap">
 				<div class="head_menu">
 					<ul>
-						<li><c:choose>
+						<li>
+							<c:choose>
 								<c:when test="${empty sessionScope.id}">
-									<li><a class="pc" href="${context }user/login">Login</a></li>
+									<li>
+										<a class="pc" href="${context }user/login">Login</a>
+									</li>
+								</c:when>
+								<c:when test="${sessionScope.id eq 'admin'}">
+									<a class="pc" href="${context }user/userList">회원관리</a>
+									<div class="head_menu_down_menu cont_list cont_list1 cont_list_small cont_list_small1">
+										<ul>
+											<li><a href="${context }logout"> Logout </a></li>
+										</ul>
+									</div>
 								</c:when>
 								<c:otherwise>
 									<li><a class="pc" href="${context }logout">Logout</a></li>
 								</c:otherwise>
-							</c:choose></li>
+							</c:choose>
+						</li>
 						<li>
 							<a href="${context }menu/totalMenu" class="pc"> MENU </a>
 							<div class="head_menu_down_menu cont_list cont_list1 cont_list_small cont_list_small1">

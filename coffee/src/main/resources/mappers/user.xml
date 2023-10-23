@@ -33,6 +33,48 @@ window - preferences - Maven - "Download Artifact Javadoc" check
 	 <select id="idCheck">
 	 		select count(*)	from megaUser1 where id = #{id}
  	 </select>
+ 	 
+ 	 <select id="findIdProc" parameterType="com.care.coffee.user.UserDTO">
+ 	 		select id from megaUser1 where userName =#{userName} AND mobile = #{mobile}
+ 	 </select>
+ 	 <select id="findPwProc" parameterType="com.care.coffee.user.UserDTO">
+ 	 		select pw from megaUser1 where id = #{id} AND userName =#{userName} AND mobile = #{mobile} 
+ 	 </select>
+ 	 
+ 	 <select id="totalCount">
+		<choose>
+			<when test="select == 'id'">
+				SELECT count(id) FROM megaUser1 WHERE id like '%'||#{search}||'%'
+			</when>
+			<when test="select == 'mobile'">
+				SELECT count(id) FROM megaUser1 WHERE mobile like '%'||#{search}||'%'
+			</when>
+			<otherwise>
+				SELECT count(id) FROM megaUser1
+			</otherwise>
+		</choose>
+	</select>
+	<select id="UserList" resultType="com.care.coffee.user.UserDTO">
+	    <choose>
+	        <when test="select == 'id'">
+	            SELECT A.* FROM 
+	            (SELECT rownum AS r, megaUser1.* FROM megaUser1 
+	            WHERE id LIKE '%'||#{search}||'%') A 
+	            WHERE A.r BETWEEN #{begin} AND #{end}
+	        </when>
+	        <when test="select == 'mobile'">
+	            SELECT A.* FROM 
+	            (SELECT rownum AS r, megaUser1.* FROM megaUser1 
+	            WHERE mobile LIKE '%'||#{search}||'%') A 
+	            WHERE A.r BETWEEN #{begin} AND #{end}
+	        </when>
+	        <otherwise>
+	            SELECT A.* 
+	            FROM (SELECT rownum AS r, megaUser1.* FROM megaUser1) A 
+	            WHERE A.r BETWEEN #{begin} AND #{end}
+	        </otherwise>
+	    </choose>
+	</select>
 </mapper>
 
 

@@ -10,29 +10,35 @@
 	<hr color="#fdd000" width="500">
 	<h2>아 이 디 찾 기</h2>
 	<hr color="#fdd000" width="500">
-	<form id="f" action="idProc" method="post">
+	<form id="f" action="findIdProc" method="post">
 		<table border="0" class="outline">
 			<tr>
 				<th>성명</th>
 				<td>
-					<input type="text" name="userName" class="box" id="userName">
+					<input type="text" name="userName"  id="userName">
 				</td>
 			</tr>
 			<tr>
-				<td>주민번호</td>
+				<th>전화번호</th>
+				<td><input type="text" name="mobile" id="mobile" maxlength="11" oninput="numCheck(this)" placeholder="'-'제외한 숫자 11자리만 입력">
+					<label id="label"></label><br></td>
 				<td>
-					<input type="text" name="ssn1" id="ssn1" class="box" maxlength="6"> - 
-					<input type="password" name="ssn2" id="ssn2" class="box" maxlength="7">
+					<input type="button" value="인증번호전송" onClick="smsReq()">
 				</td>
+			</tr>
+			<tr>
+				<th></th>
+				<td><input type="text" name="smsNumber" maxlength="6" placeholder="인증번호 6자리"  id="smsNumber" style="display: none;"/></td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
 					<input type="button" value="조회" onclick="ssnCheck()">
-					<input type="button" value="취소" onclick="location.href='${context}index'">
+					<input type="button" value="취소" onclick="location.href='/index'">
 				</td>
 			</tr>
 		</table>
 	</form>
+	${msg}
 </div>
 
 

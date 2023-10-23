@@ -1,5 +1,7 @@
 package com.care.coffee.user;
 
+import java.util.ArrayList;
+
 import java.util.Map;
 import java.util.Random;
 
@@ -28,7 +30,7 @@ public class UserController {
 	public String login() {
 		return "user/login";
 	}
-
+	// 읿반 로그인
 	@PostMapping("user/loginProc")
 	public String loginProc(UserDTO dto, Model model, RedirectAttributes ra) {
 		String msg = "";
@@ -58,29 +60,37 @@ public class UserController {
 		return "user/userSsn";
 	}
 
-	@PostMapping("user/regist")
-	public String regist(UserDTO dto, Model model, RedirectAttributes ra) {
+	@PostMapping("/user/regist")
+	public String regist(UserDTO dto, String smsNumber,Model model, RedirectAttributes ra) {
 		String msg = "";
 		// System.out.println(dto.getUserName()); //System.out.println(dto.getSsn1());
 		// System.out.println(dto.getSsn2());
 		if (dto.getUserName() == "" || dto.getUserName().trim().isEmpty()) {
-			msg = "아이디를 입력하세요"; // 화면에 송출 x return "redirect:/index"; }else
+			msg = "이름을 입력하세요."; // 화면에 송출 x return "redirect:/index"; }else
+			ra.addFlashAttribute("msg",msg);
+			return "redirect:index";
 		} else if (dto.getMobile() == 0) {
-			msg = "전화번호를 입력하세요"; // 화면에 송출 x return
+			msg = "전화번호를 입력하세요."; // 화면에 송출 x return
+			ra.addFlashAttribute("msg",msg);
+			return "redirect:index";
+		} else if (smsNumber =="" || smsNumber.trim().isEmpty()) {
+			msg ="인증번호를 입력하세요.";
+			ra.addFlashAttribute("msg",msg);
 			return "redirect:index";
 		}
 
-		int res = service.userSsn(dto);
+		int res = service.userSsn(dto,smsNumber);
 
-		if (res > 0) {
-			msg = "이미 존재하는 회원입니다.";
+		if (res == 0) {
+			msg = "본인 인증에 실패하셨습니다.";
 			ra.addFlashAttribute("msg", msg);
+			session.invalidate();
 			return "redirect:/index";
 		}
-		msg = "회원가입 페이지로 넘어갑니다.";
+		msg = "회원가입을 진행합니다.";
 		model.addAttribute("dto", dto);
+		session.invalidate();
 		return "/user/regist";
-
 	}
 
 	
@@ -89,7 +99,7 @@ public class UserController {
 	@ResponseBody
 	@PostMapping(value="smsCheck",produces = "text/plain; charset=utf-8")
 	public String regist(@RequestBody String mobile, Model model) {
-
+		String msg = "";
 		Random random = new Random();
 		String numStr = "";
 		for (int i = 0; i < 6; i++) {
@@ -98,13 +108,15 @@ public class UserController {
 		}
 		System.out.println("수신자 번호 : " + mobile);
 		System.out.println("인증 번호 : " + numStr);
-		int res =sms.smsService(mobile, numStr);
-		if(res>0) {
-			System.out.println("문자 전송 성공");	
-			return numStr;
-		}
-		System.out.println("문자 전송 실패");
-		return "문자 전송 실패";
+		//int res =sms.smsService(mobile, numStr);
+		//if(res>0) {
+			System.out.println("문자 전송 성공");
+			session.setAttribute("numStr", numStr);
+			return "문자 전송 성공";
+		//}
+		//System.out.println("문자 전송 실패");
+		
+		//return "문자 전송 실패";
 	}
 
 	// 중복 확인----------
@@ -126,7 +138,7 @@ public class UserController {
 		return msg;
 	}
 
-	// ---회원가입 미완성
+	// ---회원가입 
 	@PostMapping("user/registProc")
 	public String registProc(UserDTO dto, RedirectAttributes ra) {
 
@@ -195,5 +207,83 @@ public class UserController {
 		return "redirect:/index";
 	}
 
-	// 메가 로그인 ----------------------------------
+	// 아이디 찾기 ----------------------------------
+	@GetMapping("user/findId")
+	public String findId() {
+		return "user/findId";
+	}
+	@PostMapping("user/findIdProc")
+	public String findIdProc(UserDTO dto,RedirectAttributes ra,String smsNumber,Model model){
+		String msg = "";
+		if (dto.getUserName() == "" || dto.getUserName().trim().isEmpty()) {
+			msg = "이름을 입력하세요."; // 화면에 송출 x return "redirect:/index"; }else
+			ra.addFlashAttribute("msg",msg);
+			return "redirect:findId";
+		} else if (dto.getMobile() == 0) {
+			msg = "전화번호를 입력하세요."; // 화면에 송출 x return
+			ra.addFlashAttribute("msg",msg);
+			return "redirect:findId";
+		} else if (smsNumber =="" || smsNumber.trim().isEmpty()) {
+			msg ="인증번호를 입력하세요.";
+			ra.addFlashAttribute("msg",msg);
+			return "redirect:findId";
+		}
+		
+		String id = service.findIdProc(dto,smsNumber);
+		if (id == null||id=="" || id.trim().isEmpty()) {
+			msg = "아이디 찾기에 실패하셨습니다.";
+			ra.addFlashAttribute("msg",msg);
+			session.invalidate();
+			return "redirect:findId";
+		}
+		msg = id;
+		ra.addFlashAttribute("msg",msg);
+		return "redirect:findId";
+	}
+	// 비밀번호 찾기 ----------------------------------
+	@GetMapping("user/findPw")
+	public String findPw() {
+		return "user/findPw";
+	}
+	@PostMapping("user/findPwProc")
+	public String findPw(UserDTO dto,RedirectAttributes ra,String smsNumber,Model model) {
+		String msg = "";
+		if (dto.getUserName() == "" || dto.getUserName().trim().isEmpty()) {
+			msg = "이름을 입력하세요."; // 화면에 송출 x return "redirect:/index"; }else
+			ra.addFlashAttribute("msg",msg);
+			return "redirect:findPw";
+		}else if (dto.getId() == "" || dto.getId().trim().isEmpty()) {
+			msg = "아이디를 입력하세요."; // 화면에 송출 x return
+			ra.addFlashAttribute("msg",msg);
+			return "redirect:findPw";
+		} else if (dto.getMobile() == 0) {
+			msg = "전화번호를 입력하세요."; // 화면에 송출 x return
+			ra.addFlashAttribute("msg",msg);
+			return "redirect:findPw";
+		} else if (smsNumber =="" || smsNumber.trim().isEmpty()) {
+			msg ="인증번호를 입력하세요.";
+			ra.addFlashAttribute("msg",msg);
+			return "redirect:findPw";
+		}
+		
+		String pw = service.findPwProc(dto,smsNumber);
+		if (pw == null||pw=="" || pw.trim().isEmpty()) {
+			msg = "비밀번호 찾기에 실패하셨습니다.";
+			ra.addFlashAttribute("msg",msg);
+			session.invalidate();
+			return "redirect:findPw";
+		}
+		msg = pw;
+		ra.addFlashAttribute("msg",msg);
+		return "redirect:findPw";
+	}
+	// 회원관리(목록) 보기 ---------------------------
+	@RequestMapping("/user/userList")
+	public String userInfo(String select,String search,Model model,@RequestParam(value="currentPage",defaultValue="1",required=false)String cp) {
+		System.out.println(select+" "+search);
+		ArrayList<UserDTO> dto = service.userList(select,search,model,cp);
+		//MemberService에 select,search 데이터를 보내기 위해 매개변수에 select와 search 추가한다.
+		model.addAttribute("dto",dto);
+		return "/user/userList";
+	}
 }

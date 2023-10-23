@@ -21,6 +21,7 @@ import jakarta.servlet.http.HttpSession;
 public class MenuService {
 	@Autowired private MenuMapper mapper;
 	private String filePath ="C:\\javas\\boot_workspace\\coffee\\src\\main\\resources\\upload";
+	
 	public void totalMenu(Model model) {
 		List<MenuDTO> menu = mapper.totalMenu();
 		model.addAttribute("menus", menu);

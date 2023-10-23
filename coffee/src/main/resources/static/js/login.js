@@ -1,3 +1,5 @@
+var xhr;
+
 function allCheck() {
 	let id = document.getElementById('id');
 	let pw = document.getElementById('pw');
@@ -24,27 +26,7 @@ function allCheck() {
 	}
 }
 
-function ssnCheck() {
-	let userName = document.getElementById('userName');
-    let mobile = document.getElementById('mobile');
-    let smsNumber = document.getElementById('smsNumber');
-    let smsNum = document.getElementById('smsNum'); // 서버에서 받은 인증 번호
 
-    if (userName.value == "") {
-        alert('이름을 입력하세요.');
-    } else if (mobile.value == "") {
-        alert('전화번호를 입력하세요.');
-    } else if (smsNumber.value === "") {
-        alert('인증 번호를 입력하세요.');
-    } else if (smsNumber.value === smsNum.textContent) {
-        alert('인증 성공. 회원가입 페이지로 이동합니다.');
-        var f = document.getElementById('f');
-        f.submit();
-    } else {
-        alert('인증 실패. 본인인증에 실패하셨습니다.');
-        window.location.href = '/index';
-    }
-}
 
 
 function pwCheck() {
@@ -92,7 +74,7 @@ function loginCheck() {
 	}
 }
 
-var xhr;
+
 function idCheck() {
 
 	xhr = new XMLHttpRequest();
@@ -168,12 +150,30 @@ function smsReq(){
                  // 서버로부터 인증 실패 메시지를 받았을 때의 처리
                  alert('인증 번호가 전송 되었습니다.');
                  // 사용자에게 인증 번호 입력 창을 표시하거나 활성화
-                 var smsNumberInput = document.getElementById('smsNumberInput');
-                smsNumberInput.style.display = 'block'; // 입력창 표시
+                 var smsNumber = document.getElementById('smsNumber');
+                smsNumber.style.display = 'block'; // 입력창 표시
             
             }
 		}
 	}
 	xhr.send(mobile); 
 }
+function ssnCheck() {
+	let userName = document.getElementById('userName');
+    let mobile = document.getElementById('mobile');
+    let smsNumber = document.getElementById('smsNumber');
+   
+
+    if (userName.value == "") {
+        alert('이름을 입력하세요.');
+    } else if (mobile.value == "") {
+        alert('전화번호를 입력하세요.');
+    } else if (smsNumber.value == "") {
+        alert('인증 번호를 입력하세요.');
+    } else {
+        var f = document.getElementById('f');
+        f.submit();
+    }
+}
+
 

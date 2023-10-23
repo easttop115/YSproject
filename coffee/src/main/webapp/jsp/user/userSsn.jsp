@@ -29,8 +29,7 @@
 			</tr>
 			<tr>
 				<th></th>
-				<td><input type="text" name="smsNumber" maxlength="6" placeholder="인증번호 6자리"  id="smsNumberInput" style="display: none;" 
-						value="${numStr}"/></td>
+				<td><input type="text" name="smsNumber" maxlength="6" placeholder="인증번호 6자리"  id="smsNumber" style="display: none;"/></td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center">

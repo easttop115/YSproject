@@ -12,8 +12,8 @@ import net.nurigo.java_sdk.exceptions.CoolsmsException;
 public class SmsService {
 	
 	public int smsService(String mobile,String numStr) {
-    String api_key = ""; //coolsms - api key 키 발급
-    String api_secret = ""; //coolsms - api secret  키 발급
+    String api_key = "NCSKKYQWMDVMJRNW"; //coolsms - api key 키 발급
+    String api_secret = "B5QHL7SJ0BOXICI6JBPPAD3GTHRUFT8O"; //coolsms - api secret  키 발급
     Message coolsms = new Message(api_key, api_secret);
 
     // 4 params(to, from, type, text) are mandatory. must be filled
