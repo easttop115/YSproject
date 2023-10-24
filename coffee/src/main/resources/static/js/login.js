@@ -26,6 +26,9 @@ function allCheck() {
 	}
 }
 
+function userUpadate(){
+	
+}
 
 
 
@@ -175,5 +178,6 @@ function ssnCheck() {
         f.submit();
     }
 }
+
 
 

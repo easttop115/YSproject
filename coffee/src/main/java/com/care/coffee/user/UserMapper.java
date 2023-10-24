@@ -29,5 +29,11 @@ public interface UserMapper {
 	int totalCount(String select, String search);
 
 	ArrayList<UserDTO> UserList(@Param("begin")int begin, @Param("end")int end,@Param("select") String select,@Param("search")String search);
+
+	UserDTO myPage(@Param("id")String id);
+
+	UserDTO getMember(@Param("no")int no);
+
+	int userUpdateProc(UserDTO dto);
 		
 }

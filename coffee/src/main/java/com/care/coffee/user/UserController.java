@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import edu.emory.mathcs.backport.java.util.Arrays;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -286,4 +287,88 @@ public class UserController {
 		model.addAttribute("dto",dto);
 		return "/user/userList";
 	}
+	
+	// 마이페이지 -----------------------------
+	@RequestMapping("/user/myPage")
+	public String myPage(RedirectAttributes ra,Model model) {
+		String msg="";
+		String id =(String) session.getAttribute("id");
+		System.out.println(id);
+		if(id==""||id.trim().isEmpty()) {
+			msg="로그인 후 이용하세요.";
+			ra.addFlashAttribute("msg",msg);
+			return  "redirect:/user/login";
+		}
+		UserDTO dto = service.myPage(id);
+		if(dto==null) {
+			msg="회원정보 불러오기를 실패했습니다.";
+			ra.addFlashAttribute("msg",msg);
+			return "redirect:/index";
+		}
+		model.addAttribute("dto",dto);
+		return "/user/myPage";
+	}
+	
+	@RequestMapping("/user/userUpdate")
+	public String userUpdate(UserDTO dto,Model model,RedirectAttributes ra) {
+		System.out.println(dto.getNo());
+		String msg="";
+		if(dto.getNo()==0) {
+			msg="회원정보를 불러올 수 없습니다.";
+			ra.addFlashAttribute("msg",msg);
+			return "redirect:/index";
+		}
+		int no = dto.getNo();
+		dto = service.getMember(no);
+		if(dto.getAddress()==""||dto.getAddress().trim().isEmpty()) {
+			model.addAttribute("dto",dto);
+			return "/user/userUpdate";
+		}
+		String[] address =dto.getAddress().split("//");
+		//System.out.println(Arrays.toString(address));
+		//System.out.println(address[1]);
+		model.addAttribute("postcode",address[0]);
+		model.addAttribute("address",address[1]);
+		model.addAttribute("detailAddress",address[2]);
+		model.addAttribute("dto",dto);
+		return "/user/userUpdate";
+	}
+	
+	@PostMapping("/user/userUpdateProc")
+	public String userUpdateProc(UserDTO dto,Model model,RedirectAttributes ra) {
+		String msg="";
+		System.out.println(dto.getNo());
+		System.out.println(dto.getPw());
+		if(dto.getPw()==""||dto.getPw().trim().isEmpty()) {
+			msg="비밀번호를 입력하세요.";
+			model.addAttribute("msg",msg);
+			return "/userUpdate";
+		}else if(dto.getUserName()==""||dto.getUserName().trim().isEmpty()) {
+			msg="이름을 입력하세요.";
+			model.addAttribute("msg",msg);
+			return "/userUpdate";
+		}else if(dto.getEmail()==""||dto.getEmail().trim().isEmpty()) {
+			msg="이메일을 입력하세요.";
+			model.addAttribute("msg",msg);
+			return "/userUpdate";
+		}else if(dto.getMobile()==0) {
+			msg="전화번호를 입력하세요.";
+			model.addAttribute("msg",msg);
+			return "/userUpdate";
+		}
+		int res =service.userUpdateProc(dto);
+		if(res>0) {
+			msg="회원수정에 성공하셨습니다.";
+			ra.addFlashAttribute("msg",msg);
+			return "redirect:/index";
+		}
+		msg="회원수정에 실패하셨습니다.";
+		ra.addFlashAttribute("msg",msg);
+		return "redirect:/index";
+	}
+	
+	
+	
+	
+	
 }

@@ -2,52 +2,60 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!-- 
-window - preferences - Maven - "Download Artifact Javadoc" check 
- -->
+<!-- window - preferences - Maven - "Download Artifact Javadoc" check -->
 <mapper namespace="com.care.coffee.user.UserMapper">
 
-	<select id="userSsn" parameterType="com.care.coffee.user.UserDTO">
-		SELECT count(*) FROM megaUser1 WHERE userName = #{userName} AND mobile= #{mobile}	
+	<select id="userSsn"
+		parameterType="com.care.coffee.user.UserDTO">
+		SELECT count(*) FROM megaUser1 WHERE userName =
+		#{userName} AND mobile= #{mobile}
 	</select>
-	
-	
-	<insert id="registProc" parameterType="com.care.coffee.user.UserDTO">
+
+
+	<insert id="registProc"
+		parameterType="com.care.coffee.user.UserDTO">
 		<selectKey resultType="int" keyProperty="no" order="BEFORE">
-	        SELECT NVL(max(no), 0)+1 FROM megaUser1
-	    </selectKey>
-			insert into megaUser1 values (#{no, jdbcType=NUMERIC},#{id},#{pw},#{userName},#{email},#{nickName},#{mobile},#{address},#{reg_Date},1)
+			SELECT NVL(max(no), 0)+1 FROM megaUser1
+		</selectKey>
+		insert into megaUser1 values (#{no,
+		jdbcType=NUMERIC},#{id},#{pw},#{userName},#{email},#{nickName},#{mobile},#{address},#{reg_Date},1)
 	</insert>
-	 
-	 <select id="loginProc">
-	 		SELECT COUNT(*) FROM megaUser1 WHERE id = #{id} AND pw = #{pw}
-	 </select>
-	 
-	 <select id="snsLogCheck">
-	 		select count(*) from snsUser Where id = #{id} AND loginType = #{loginType}
-	 </select>
-	 <insert id="snsRegist" parameterType="com.care.coffee.user.SnsUserDTO">
-	 		insert into snsUser values(#{id},#{loginType})
-	 </insert>
-	 
-	 <select id="idCheck">
-	 		select count(*)	from megaUser1 where id = #{id}
- 	 </select>
- 	 
- 	 <select id="findIdProc" parameterType="com.care.coffee.user.UserDTO">
- 	 		select id from megaUser1 where userName =#{userName} AND mobile = #{mobile}
- 	 </select>
- 	 <select id="findPwProc" parameterType="com.care.coffee.user.UserDTO">
- 	 		select pw from megaUser1 where id = #{id} AND userName =#{userName} AND mobile = #{mobile} 
- 	 </select>
- 	 
- 	 <select id="totalCount">
+
+	<select id="loginProc">
+		SELECT COUNT(*) FROM megaUser1 WHERE id = #{id} AND pw = #{pw}
+	</select>
+
+	<select id="snsLogCheck">
+		select count(*) from snsUser Where id = #{id} AND loginType = #{loginType}
+	</select>
+	<insert id="snsRegist"
+		parameterType="com.care.coffee.user.SnsUserDTO">
+		insert into snsUser values(#{id},#{loginType})
+	</insert>
+
+	<select id="idCheck">
+		select count(*) from megaUser1 where id = #{id}
+	</select>
+
+	<select id="findIdProc"
+		parameterType="com.care.coffee.user.UserDTO">
+		select id from megaUser1 where userName =#{userName} AND mobile = #{mobile}
+	</select>
+	<select id="findPwProc"
+		parameterType="com.care.coffee.user.UserDTO">
+		select pw from megaUser1 where id = #{id} AND userName =#{userName} AND
+		mobile = #{mobile}
+	</select>
+
+	<select id="totalCount">
 		<choose>
 			<when test="select == 'id'">
-				SELECT count(id) FROM megaUser1 WHERE id like '%'||#{search}||'%'
+				SELECT count(id) FROM megaUser1 WHERE id like
+				'%'||#{search}||'%'
 			</when>
 			<when test="select == 'mobile'">
-				SELECT count(id) FROM megaUser1 WHERE mobile like '%'||#{search}||'%'
+				SELECT count(id) FROM megaUser1 WHERE mobile like
+				'%'||#{search}||'%'
 			</when>
 			<otherwise>
 				SELECT count(id) FROM megaUser1
@@ -55,26 +63,36 @@ window - preferences - Maven - "Download Artifact Javadoc" check
 		</choose>
 	</select>
 	<select id="UserList" resultType="com.care.coffee.user.UserDTO">
-	    <choose>
-	        <when test="select == 'id'">
-	            SELECT A.* FROM 
-	            (SELECT rownum AS r, megaUser1.* FROM megaUser1 
-	            WHERE id LIKE '%'||#{search}||'%') A 
-	            WHERE A.r BETWEEN #{begin} AND #{end}
-	        </when>
-	        <when test="select == 'mobile'">
-	            SELECT A.* FROM 
-	            (SELECT rownum AS r, megaUser1.* FROM megaUser1 
-	            WHERE mobile LIKE '%'||#{search}||'%') A 
-	            WHERE A.r BETWEEN #{begin} AND #{end}
-	        </when>
-	        <otherwise>
-	            SELECT A.* 
-	            FROM (SELECT rownum AS r, megaUser1.* FROM megaUser1) A 
-	            WHERE A.r BETWEEN #{begin} AND #{end}
-	        </otherwise>
-	    </choose>
+		<choose>
+			<when test="select == 'id'">
+				SELECT A.* FROM
+				(SELECT rownum AS r, megaUser1.* FROM megaUser1
+				WHERE id LIKE '%'||#{search}||'%') A
+				WHERE A.r BETWEEN #{begin} AND #{end}
+			</when>
+			<when test="select == 'mobile'">
+				SELECT A.* FROM
+				(SELECT rownum AS r, megaUser1.* FROM megaUser1
+				WHERE mobile LIKE '%'||#{search}||'%') A
+				WHERE A.r BETWEEN #{begin} AND #{end}
+			</when>
+			<otherwise>
+				SELECT A.*
+				FROM (SELECT rownum AS r, megaUser1.* FROM megaUser1) A
+				WHERE A.r BETWEEN #{begin} AND #{end}
+			</otherwise>
+		</choose>
 	</select>
+	<select id="myPage" resultType="com.care.coffee.user.UserDTO">
+		SELECT * FROM megaUser1 WHERE id = #{id}
+	</select>
+	<select id="getMember" resultType="com.care.coffee.user.UserDTO">
+		SELECT * FROM megaUser1 WHERE no = #{no}
+	</select>
+
+	<update id="userUpdateProc" parameterType="com.care.coffee.user.UserDTO">
+		UPDATE megaUser1 SET pw = #{pw},userName = #{userName}, email = #{email}, mobile = #{mobile}, address = #{address} WHERE no = #{no}
+	</update>
 </mapper>
 
 

@@ -135,5 +135,21 @@ public class UserService {
 		return dto;
 			
 	}
+
+	public UserDTO myPage(String id) {
+		UserDTO dto = dao.myPage(id);
+		return dto;
+	}
+
+	public UserDTO getMember(int no) {
+		UserDTO dto = new UserDTO();
+		dto= dao.getMember(no);
+		return dto;
+	}
+
+	public int userUpdateProc(UserDTO dto) {
+		int res = dao.userUpdateProc(dto);
+		return res;
+	}
 }
 

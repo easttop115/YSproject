@@ -1,6 +1,7 @@
 package com.care.coffee.user;
 
 public class UserDTO {
+	
     private int no;
     private String id;
     private String pw;

@@ -106,7 +106,7 @@
 							</c:when>
 							<c:otherwise>
 								<li style="text-align: center;border:0;padding-top:5px;">
-									<a href="">마이페이지</a>
+									<a href="/user/myPage">마이페이지</a>
 								</li>
 							</c:otherwise>
 						</c:choose>
